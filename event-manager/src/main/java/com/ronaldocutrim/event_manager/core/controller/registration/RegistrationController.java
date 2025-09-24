@@ -1,21 +1,25 @@
 package com.ronaldocutrim.event_manager.core.controller.registration;
 
+import com.ronaldocutrim.event_manager.core.service.EventService;
+import com.ronaldocutrim.event_manager.core.service.ParticipantService;
 import com.ronaldocutrim.event_manager.core.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/registrations")
 public class RegistrationController {
     private final RegistrationService registrationService;
+    private final EventService eventService;
+    private final ParticipantService participantService;
 
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@RequestBody RegistrationInput registrationInput) {
-        registrationService.register(registrationInput);
+        var participant = participantService.findOrCreate(registrationInput.name(), registrationInput.email());
+        var event = eventService.findById(registrationInput.eventId());
+        registrationService.register(event, participant);
     }
 }

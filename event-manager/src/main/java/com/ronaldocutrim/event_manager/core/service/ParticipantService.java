@@ -12,6 +12,9 @@ import java.util.List;
 public class ParticipantService {
     private final ParticipantRepository participantRepository;
 
+    public ParticipantModel findById(String id) {
+        return participantRepository.findById(id).orElseThrow();
+    }
     public List<ParticipantModel> findByIds(List<String> ids) {
         return participantRepository.findByIdIn(ids);
     }

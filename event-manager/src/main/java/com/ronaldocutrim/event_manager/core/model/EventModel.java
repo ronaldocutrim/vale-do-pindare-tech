@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -46,4 +47,7 @@ public class EventModel {
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private ParticipantModel participant;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RegistrationModel> registrations;
 }

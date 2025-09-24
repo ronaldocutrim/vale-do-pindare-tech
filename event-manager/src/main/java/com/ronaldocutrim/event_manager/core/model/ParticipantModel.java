@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,4 +23,10 @@ public class ParticipantModel {
     private String name;
     @Column(nullable = false, unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<EventModel> ownedEvents;
+
+    @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RegistrationModel> registrations;
 }

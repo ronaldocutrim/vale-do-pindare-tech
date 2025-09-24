@@ -1,0 +1,145 @@
+### Event Manager API - JetBrains HTTP Client
+### Make sure your Spring Boot application is running on localhost:8080
+
+### Variables
+@baseUrl = localhost:8080
+@eventId = 123abc
+@participantId = 456def
+
+### 1. Listar próximos eventos
+GET {{baseUrl}}/api/events
+Accept: application/json
+
+### 2. Obter evento específico
+GET {{baseUrl}}/api/events/{{eventId}}
+Accept: application/json
+
+### 3. Obter evento específico com lista de participantes (como organizador)
+GET {{baseUrl}}/api/events/{{eventId}}?participantId={{participantId}}
+Accept: application/json
+
+### 4. Criar novo evento - Workshop
+POST {{baseUrl}}/api/events
+Content-Type: application/json
+
+{
+  "participantName": "João Silva",
+  "participantEmail": "joao@email.com",
+  "name": "Workshop de Spring Boot",
+  "description": "Aprenda os conceitos básicos do Spring Boot",
+  "date": "2024-12-15",
+  "slots": 50,
+  "location": "Auditório Principal - São Luís/MA"
+}
+
+### 5. Criar evento de tecnologia
+POST {{baseUrl}}/api/events
+Content-Type: application/json
+
+{
+  "participantName": "Tech Lead Vale",
+  "participantEmail": "tech@valedopindare.com",
+  "name": "Meetup JavaScript",
+  "description": "Discussão sobre as últimas tendências em JavaScript e frameworks modernos",
+  "date": "2024-11-20",
+  "slots": 30,
+  "location": "Coworking Tech Hub - Imperatriz/MA"
+}
+
+### 6. Criar evento de negócios
+POST {{baseUrl}}/api/events
+Content-Type: application/json
+
+{
+  "participantName": "Empreendedor Local",
+  "participantEmail": "empreendedor@gmail.com",
+  "name": "Summit de Inovação",
+  "description": "Encontro de empreendedores do Vale do Pindaré para discutir inovação e tecnologia",
+  "date": "2024-12-10",
+  "slots": 100,
+  "location": "Centro de Convenções - Santa Inês/MA"
+}
+
+### 7. Registrar participante em evento
+POST {{baseUrl}}/api/registrations
+Content-Type: application/json
+
+{
+  "eventId": "{{eventId}}",
+  "name": "Maria Santos",
+  "email": "maria@email.com"
+}
+
+### 8. Registrar outro participante
+POST {{baseUrl}}/api/registrations
+Content-Type: application/json
+
+{
+  "eventId": "{{eventId}}",
+  "name": "Carlos Mendes",
+  "email": "carlos.mendes@email.com"
+}
+
+### 9. Registrar participante em evento diferente
+POST {{baseUrl}}/api/registrations
+Content-Type: application/json
+
+{
+  "eventId": "789xyz",
+  "name": "Ana Pereira",
+  "email": "ana.pereira@email.com"
+}
+
+### 10. Buscar participantes por IDs
+GET {{baseUrl}}/api/participants?ids=456def,789ghi,012jkl
+Accept: application/json
+
+### 11. Buscar participantes por IDs (formato alternativo)
+GET {{baseUrl}}/api/participants?ids=abc123&ids=def456&ids=ghi789
+Accept: application/json
+
+### 12. Criar participante
+POST {{baseUrl}}/api/participants
+Content-Type: application/json
+
+{
+  "name": "Carlos Oliveira",
+  "email": "carlos@email.com"
+}
+
+### 13. Criar outro participante
+POST {{baseUrl}}/api/participants
+Content-Type: application/json
+
+{
+  "name": "Fernanda Costa",
+  "email": "fernanda.costa@email.com"
+}
+
+### 14. Criar evento esportivo
+POST {{baseUrl}}/api/events
+Content-Type: application/json
+
+{
+  "participantName": "Coordenador Esportivo",
+  "participantEmail": "esportes@valedopindare.com",
+  "name": "Torneio de Futebol",
+  "description": "Campeonato regional de futebol entre municípios do Vale do Pindaré",
+  "date": "2024-12-01",
+  "slots": 16,
+  "location": "Estádio Municipal - Pindaré-Mirim/MA"
+}
+
+### 15. Criar evento cultural
+POST {{baseUrl}}/api/events
+Content-Type: application/json
+
+{
+  "participantName": "Secretaria de Cultura",
+  "participantEmail": "cultura@santaines.ma.gov.br",
+  "name": "Festival de Música Regional",
+  "description": "Apresentação de artistas locais e valorização da cultura maranhense",
+  "date": "2024-11-30",
+  "slots": 200,
+  "location": "Praça Central - Santa Inês/MA"
+}
