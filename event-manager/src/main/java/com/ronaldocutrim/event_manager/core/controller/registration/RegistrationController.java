@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/registrations")
@@ -19,7 +21,7 @@ public class RegistrationController {
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@RequestBody RegistrationInput registrationInput) {
         var participant = participantService.findOrCreate(registrationInput.name(), registrationInput.email());
-        var event = eventService.findById(registrationInput.eventId());
+        var event = eventService.findById(UUID.fromString(registrationInput.eventId()));
         registrationService.register(event, participant);
     }
 }

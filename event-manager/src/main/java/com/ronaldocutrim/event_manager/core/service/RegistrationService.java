@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +17,7 @@ public class RegistrationService {
 
     private final RegistrationRepository registrationRepository;
 
-    public List<RegistrationModel> findByEventId(String eventId) {
+    public List<RegistrationModel> findByEventId(UUID eventId) {
         return registrationRepository.findByEventId(eventId).orElse(List.of());
     };
 

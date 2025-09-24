@@ -1,0 +1,138 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-09-24T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v8.6.1",
+  "resources": [
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080"
+      }
+    },
+    {
+      "_id": "workspace",
+      "_type": "workspace",
+      "name": "Event Manager API",
+      "description": "API para gerenciamento de eventos e participantes"
+    },
+    {
+      "_id": "folder_events",
+      "_type": "request_group",
+      "name": "Events",
+      "description": "Endpoints relacionados aos eventos",
+      "parentId": "workspace"
+    },
+    {
+      "_id": "folder_participants",
+      "_type": "request_group",
+      "name": "Participants",
+      "description": "Endpoints relacionados aos participantes",
+      "parentId": "workspace"
+    },
+    {
+      "_id": "folder_registrations",
+      "_type": "request_group",
+      "name": "Registrations",
+      "description": "Endpoints relacionados às inscrições",
+      "parentId": "workspace"
+    },
+    {
+      "_id": "req_get_events",
+      "_type": "request",
+      "parentId": "folder_events",
+      "name": "Get Next Events",
+      "description": "Busca próximos eventos",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/events",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_get_event_by_id",
+      "_type": "request",
+      "parentId": "folder_events",
+      "name": "Get Event by ID",
+      "description": "Busca evento por ID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/events/{{ event_id }}",
+      "parameters": [
+        {
+          "name": "participantId",
+          "value": "{{ participant_id }}",
+          "description": "ID do participante (opcional)",
+          "disabled": true
+        }
+      ],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_create_event",
+      "_type": "request",
+      "parentId": "folder_events",
+      "name": "Create Event",
+      "description": "Cria um novo evento",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/events",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Workshop de Spring Boot\",\n  \"description\": \"Aprenda Spring Boot do básico ao avançado\",\n  \"date\": \"2025-12-01\",\n  \"slots\": 30,\n  \"location\": \"Centro de Convenções\",\n  \"ownerId\": \"{{ owner_id }}\"\n}"
+      }
+    },
+    {
+      "_id": "req_create_or_get_participant",
+      "_type": "request",
+      "parentId": "folder_participants",
+      "name": "Create or Get Participant",
+      "description": "Cria um novo participante ou retorna existente",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/participants",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"João Silva\",\n  \"email\": \"joao.silva@email.com\"\n}"
+      }
+    },
+    {
+      "_id": "req_register_participant",
+      "_type": "request",
+      "parentId": "folder_registrations",
+      "name": "Register Participant in Event",
+      "description": "Inscreve um participante em um evento",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/registrations",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"eventId\": \"{{ event_id }}\",\n  \"name\": \"Maria Santos\",\n  \"email\": \"maria.santos@email.com\"\n}"
+      }
+    }
+  ]
+}

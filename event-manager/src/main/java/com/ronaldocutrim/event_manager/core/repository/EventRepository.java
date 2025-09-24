@@ -12,7 +12,6 @@ import java.util.UUID;
 
 @Repository
 public interface EventRepository extends JpaRepository<EventModel, UUID> {
-    Optional<EventModel> findByIdAndActiveTrue(String id);
-    Optional<EventModel> findById(String id);
+    Optional<EventModel> findByIdAndActiveTrue(UUID id);
     List<EventModel> findByDateAfterAndActiveTrue(LocalDate now);
 }

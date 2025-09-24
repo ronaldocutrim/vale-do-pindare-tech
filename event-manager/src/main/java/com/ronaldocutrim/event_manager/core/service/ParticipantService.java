@@ -6,16 +6,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class ParticipantService {
     private final ParticipantRepository participantRepository;
 
-    public ParticipantModel findById(String id) {
+    public ParticipantModel findById(UUID id) {
         return participantRepository.findById(id).orElseThrow();
     }
-    public List<ParticipantModel> findByIds(List<String> ids) {
+    public List<ParticipantModel> findByIds(List<UUID> ids) {
         return participantRepository.findByIdIn(ids);
     }
 

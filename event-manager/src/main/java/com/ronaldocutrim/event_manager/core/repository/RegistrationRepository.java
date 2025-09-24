@@ -11,5 +11,5 @@ import java.util.UUID;
 
 @Repository
 public interface RegistrationRepository extends JpaRepository<RegistrationModel, UUID> {
-    public Optional<List<RegistrationModel>> findByEventId(String eventId);
+    public Optional<List<RegistrationModel>> findByEventId(UUID eventId);
 }

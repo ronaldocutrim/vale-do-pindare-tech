@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +20,11 @@ public class EventService {
         return eventRepository.findByDateAfterAndActiveTrue(LocalDate.now());
     }
 
-    public EventModel findById(String id) {
+    public EventModel findById(UUID id) {
         return eventRepository.findByIdAndActiveTrue(id).orElse(null);
     }
 
-    public EventModel getEventById(String id) {
+    public EventModel getEventById(UUID id) {
         return eventRepository.findById(id).orElseThrow();
     }
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    EventOutput getEvent(@PathVariable String id, @RequestParam(required = false) String participantId) {
+    EventOutput getEvent(@PathVariable UUID id, @RequestParam(required = false) UUID participantId) {
         var event = eventService.getEventById(id);
         var output = EventOutput
                 .builder()
@@ -34,7 +35,7 @@ public class EventController {
                 .withSlots(event.getSlots())
                 .withDate(event.getDate());
 
-        if(participantId != null && Objects.equals(participantId, event.getParticipant().getId().toString())) {
+        if(participantId != null && Objects.equals(participantId, event.getParticipant().getId())) {
             output.withParticipants(event.getRegistrations().stream()
                     .map(registration -> EventOutput.ParticipantOutput.builder()
                             .withName(registration.getParticipant().getName())
@@ -49,7 +50,7 @@ public class EventController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody EventInput eventInput) {
-        var participant = participantService.findById(eventInput.ownerId());
+        var participant = participantService.findById(UUID.fromString(eventInput.ownerId()));
         eventService.save(
                 eventInput.name(),
                 eventInput.description(),
