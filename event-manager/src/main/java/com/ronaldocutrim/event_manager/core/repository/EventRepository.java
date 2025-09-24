@@ -8,7 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface EventRepository extends JpaRepository<EventModel, String> {
+public interface EventRepository extends JpaRepository<EventModel, UUID> {
+    Optional<EventModel> findByIdAndActiveTrue(String id);
+    Optional<EventModel> findById(String id);
+    List<EventModel> findByDateAfterAndActiveTrue(LocalDate now);
 }
